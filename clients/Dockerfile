@@ -3,7 +3,9 @@
 FROM alpine:3.21 AS core
 RUN apk add --no-cache git
 RUN git clone https://github.com/polarsource/polar.git --depth=1 --branch=main /tmp/source/
-WORKDIR /tmp/source/clients
+WORKDIR /tmp/source
+ADD ./standalone.diff
+RUN git apply standalone.diff
 
 FROM node:18-alpine AS base
 

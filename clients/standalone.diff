@@ -1,0 +1,12 @@
+diff --git a/clients/apps/web/next.config.mjs b/clients/apps/web/next.config.mjs
+index 5a6a3c0..7fa773f 100644
+--- a/clients/apps/web/next.config.mjs
++++ b/clients/apps/web/next.config.mjs
+@@ -44,6 +44,7 @@ const redirectDocs = (source, destination, permanent = false) => {
+ 
+ /** @type {import('next').NextConfig} */
+ const nextConfig = {
++  output: 'standalone',
+   reactStrictMode: true,
+   swcMinify: true,
+   transpilePackages: ['shiki'],
