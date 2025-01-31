@@ -3,6 +3,7 @@
 FROM alpine:3.21 AS core
 RUN apk add --no-cache git
 RUN git clone https://github.com/polarsource/polar.git --depth=1 --branch=main /tmp/source/
+WORKDIR /tmp/source/clients
 
 FROM node:18-alpine AS base
 
@@ -13,7 +14,7 @@ RUN apk add --no-cache libc6-compat
 WORKDIR /app
 
 # Install dependencies based on the preferred package manager
-COPY --from=core /tmp/source/package.json /tmp/source/yarn.lock* /tmp/source/package-lock.json* /tmp/source/pnpm-lock.yaml* /tmp/source/.npmrc* ./
+COPY --from=core package.json yarn.lock* package-lock.json* pnpm-lock.yaml* .npmrc* ./
 RUN \
   if [ -f yarn.lock ]; then yarn --frozen-lockfile; \
   elif [ -f package-lock.json ]; then npm ci; \
@@ -26,7 +27,7 @@ RUN \
 FROM base AS builder
 WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
-COPY --from=core /tmp/source/ .
+COPY --from=core . .
 
 # Next.js collects completely anonymous telemetry data about general usage.
 # Learn more here: https://nextjs.org/telemetry
