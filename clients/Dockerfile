@@ -20,7 +20,9 @@ COPY --from=core /tmp/source/clients/ .
 ENV NEXT_TELEMETRY_DISABLED=1
 
 # Deps
-RUN corepack enable pnpm && pnpm i --frozen-lockfile
+RUN npm install -g corepack@latest && \
+  corepack enable pnpm && \
+  pnpm i --frozen-lockfile
 
 RUN \
   if [ -f yarn.lock ]; then yarn run build; \
