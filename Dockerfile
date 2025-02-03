@@ -32,4 +32,4 @@ ENV RELEASE_VERSION=${RELEASE_VERSION}
 
 ENV POLAR_JWKS=/app/server/.jwks.json
 ENTRYPOINT ["/bin/sh", "-c"]
-CMD ["echo ${JWKS_JSON} > /app/server/.jwks.json && uv run uvicorn polar.app:app --host 0.0.0.0 --port 10000"]
+CMD ["echo ${JWKS_JSON} > /app/server/.jwks.json && uv run uvicorn polar.app:app --host 0.0.0.0 --port 10000 --proxy-headers --forwarded-allow-ips '*'"]
