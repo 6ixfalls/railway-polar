@@ -1,5 +1,7 @@
 # syntax=docker.io/docker/dockerfile:1
 
+ARG NEXT_PUBLIC_API_URL NEXT_PUBLIC_FRONTEND_BASE_URL NEXT_PUBLIC_STRIPE_KEY NEXT_PUBLIC_GITHUB_APP_NAMESPACE NEXT_PUBLIC_APPLE_DOMAIN_ASSOCIATION
+
 FROM alpine:3.21 AS core
 RUN apk add --no-cache git
 RUN git clone https://github.com/polarsource/polar.git --depth=1 --branch=main /tmp/source/
